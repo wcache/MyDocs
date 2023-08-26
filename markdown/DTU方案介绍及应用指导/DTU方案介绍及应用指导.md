@@ -17,19 +17,36 @@ DTU主要功能就是把设备的数据通过无线的方式传送回云端（�
 
 ### 应用领域
 
-![](./media/DTU应用领域.png)
+![](./media/DTU应用领域.jpg)
 
 <center>图2 DTU应用领域</center>
-## 硬件产品介绍
+## 硬件选型
 
-### 简介
+ 本方案支持多款QuecPython硬件设备，下面介绍`QuecPython EVB开发板`和`DP-DTU-Q600`。
+
+#### QuecPython_EVB开发板介绍
+
+以搭载了`EC200U`模组的开发板`QuecPython_EC2X_EVB_V2.0`(EC2X开发板介绍：https://python.quectel.com/doc/Quick_start/zh/EC2X_BOARD.html)为例。如下图所示，设备使用type-c给模块供电，UART与TTL转USB模块连接至开发电脑，可轻松实现调试。
+
+![](./media/quecpython_evb.png)
+
+<center>图3 QuecPython_EC2X_EVB_V2.0使用UART与TTL转USB连接电脑</center>
+| 开发板上的PIN脚 | TTL转USB模块 | 图中线的颜色 |
+| --------------- | ------------ | ------------ |
+| J7的13脚(TX)    | RX           | 红线         |
+| J7的14脚(RX)    | TX           | 橙线         |
+| J7的3脚(GND)    | GND          | 黄线         |
+
+更多开发板请参阅：https://python.quectel.com/doc/Quecpython_intro/zh/Qp_Product_intro/Hardware_Support.html。
+
+#### DP-DTU-Q600产品介绍
 
 DP-DTU-Q600 是一款 LTE CAT1 网络的 DTU，方便集成到工控机、工业设备、传感设备里，其物理尺寸为 72mm x 40.5mm x 20mm 产品具备网络覆盖广、传输延时低的特点，支持三大运营商接入；产品有三个指示灯，方便客户确认设备状态。
 
 ![](./media/DP-DTU-Q600.png)
 
-<center>图3 DP-DTU-Q600</center>
-### 产品规格
+<center>图4 DP-DTU-Q600</center>
+产品规格：
 
 | 规格       | 参数                 |
 | ---------- | -------------------- |
@@ -40,7 +57,7 @@ DP-DTU-Q600 是一款 LTE CAT1 网络的 DTU，方便集成到工控机、工业
 | 网络制式   | 4G CAT1 全网通       |
 | 通信接口   | 2PIN 端子 RS485      |
 
-### 产品特点
+产品特点：
 
 - 内部集成TCP/IP协议栈，并且具有嵌入式操作系统， 具备拨号上网以及TCP/IP数据通信的功能
 - 提供串口数据双向转换功能
@@ -52,25 +69,18 @@ DP-DTU-Q600 是一款 LTE CAT1 网络的 DTU，方便集成到工控机、工业
 -  NANO SIM 卡槽 
 -  RS485 接口，方便集成  
 
-### 设备调试
-
-#### 前置准备
+设备调试：
 
 - 在NANO SIM卡座中插入SIM卡
 - 连接好天线
 - 接入电源
 
-![](./media/DP-DTU-Q600硬件接口图示.png)
+![](./media/DP-DTU-Q600硬件接口图示2.png)
 
-<center>图4 DP-DTU-Q600硬件接口</center>
-#### 连接设备至开发机
+<center>图5 DP-DTU-Q600硬件接口</center>
+连接设备至开发机（本文采用`CP2102 USB to TTL模块`进行连接和调试）。
 
-本文采用`CP2102 USB to TTL模块`进行连接和调试。
-
-![](./media/DTU_BOARD_002.png)
-
-<center>图5 CP2102 USB转485模式</center>
-使用2根杜邦线分别连接`485A`、`485B`针脚，将`CP2102`连接至开发机的`USB`口。
+使用2根杜邦线分别连接`485A`、`485B`针脚，将`CP2102`连接至开发机的`USB`口（如图6所示）。
 
 ![](./media/DTU_BOARD_003.jpg)
 
@@ -85,7 +95,7 @@ DP-DTU-Q600 是一款 LTE CAT1 网络的 DTU，方便集成到工控机、工业
 
 
 
-![](./media/qpycom_select_port.png)
+![](./media/qpycom_select_port2.png)
 
 <center>图7 QPYCom打开repl串口</center>
 ##### 下载脚本
@@ -94,12 +104,12 @@ DP-DTU-Q600 是一款 LTE CAT1 网络的 DTU，方便集成到工控机、工业
 
 > 此处我们创建名为`dtu`的项目。
 
-![](./media/qpycom_proj.png)
+![](./media/qpycom_proj2.png)
 
 <center>图8 QPYCom新建项目</center>
 选择导入文件 —— 右击`usr`目录，在弹出的选择框中点击**一键导入**，继而选择我们DTU代码仓库中的**code**文件夹 —— 即将code中的所有代码一键导入至模组。如下图所示：
 
-![](./media/qpycom_add_file.png)
+![](./media/qpycom_add_file2.png)
 
 <center>图9 QPYCom一键导入脚本</center>
 导入脚本 —— 点击右下角`下载脚本`按钮，即可开始导入脚本。
@@ -108,21 +118,21 @@ DP-DTU-Q600 是一款 LTE CAT1 网络的 DTU，方便集成到工控机、工业
 
 切换至"文件"选项卡，在右边选中"dtu.py"，点击运行按钮，即可开始dtu调试运行，如果需要上电自动运行，只需要将"dtu.py"更名为"main.py"即可实现上电自动运行。
 
-![](./media/qpycom_run.png)
+![](./media/qpycom_run2.png)
 
 <center>图10 QPYCom执行脚本</center>
 DTU运行成功，在QPYcom的"交互"窗口中，可观察到打印如下。
 
 > 应用程序运行依赖具体用户参数配置，比如配置MQTT连接参数等。参考后续DTU方案介绍章节。
 
-![](./media/dtu_init.png)
+![](./media/dtu_init2.png)
 
 <center>图11 QPYCom脚本输出日志</center>
 ## 方案软件设计
 
 ### 系统框图
 
-![](./media/DTU组件图示3.png)
+![](./media/DTU组件图示4.png)
 
 <center>图12 DTU方案系统图示</center>
 组件说明：
@@ -213,21 +223,21 @@ CloudObserver[CloudObserver] --> RemoteSubscribe[RemoteSubscribe]
 
 ```mermaid
 sequenceDiagram
-Title: 设备下行数据处理时序
+Title: Device downlink data processing timing
 
-participant cloud as Cloud[mqtt私有云]
+participant cloud as Cloud[mqtt]
 participant mqtt as MqttIot
 participant rs as RemoteSubscribe
-participant executor as 执行器
+participant executor as Executor
 
-mqtt -->> cloud: 连接云端并订阅主题
-rs -->> executor: 添加执行器
-mqtt -->> rs: 添加观察者
-rs -->> rs: 等待通知
+mqtt -->> cloud: connect cloud & subscribe
+rs -->> executor: add executor
+mqtt -->> rs: add observer
+rs -->> rs: Waiting for notification
 
-cloud ->> mqtt: 云端下行数据
-mqtt ->> rs: 通知观察者(携带下行数据)
-rs ->> executor: 调用执行器处理具体业务
+cloud ->> mqtt: downlink data
+mqtt ->> rs: notify observer(carrying downlink data)
+rs ->> executor: call executor
 ```
 
 本方案中定义处理下行数据的执行器有两种：
@@ -243,27 +253,27 @@ rs ->> executor: 调用执行器处理具体业务
 
 ```mermaid
 sequenceDiagram
-Title: 设备下行数据处理时序
+Title: Device uplink data processing timing
 
 
-participant cloud as Cloud[mqtt私有云]
+participant cloud as Cloud[mqtt]
 participant mqtt as MqttIot
 participant rp as RemotePublish
 participant executor as UplinkTransaction
 
 
-mqtt -->> cloud: 连接云端
-rp -->> mqtt: 关联云端对象
-executor -->> rp: 添加发布器(用于发送上行数据至云端)
-executor -->> executor: 循环读取串口数据
+mqtt -->> cloud: connect cloud & subscribe
+rp -->> mqtt: add cloud
+executor -->> rp: add publisher
+executor -->> executor: read serial data
 
-executor ->> rp: 上行数据
-rp ->> mqtt: 检查连接状态
-mqtt ->> rp: 连接正常/异常
-rp ->> mqtt: 根据状态选择是否重新连接
+executor ->> rp: uplink data
+rp ->> mqtt: check connect status
+mqtt ->> rp: report connect status
+rp ->> mqtt: reconnect according to status
 
-rp ->> mqtt: 上行数据
-mqtt ->> cloud: 上行数据
+rp ->> mqtt: uplink data
+mqtt ->> cloud: uplink data
 ```
 
 本方案中定义处理上行数据执行器有一种：
